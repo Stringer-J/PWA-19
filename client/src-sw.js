@@ -43,6 +43,18 @@ const jsCache = new StaleWhileRevalidate({
   ],
 });
 
+const imageCache = new CacheFirst({
+  cacheName: 'image-cache',
+  plugins: [
+    new CacheableResponsePlugin({
+      statuses: [0, 200],
+    }),
+    new ExpirationPlugin({
+      maxAgeSeconds: 30 * 24 * 60 * 60,
+    }),
+  ],
+});
+
 warmStrategyCache({
   urls: ['/index.html', '/'],
   strategy: pageCache,
