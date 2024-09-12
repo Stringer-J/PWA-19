@@ -24,7 +24,7 @@ module.exports = () => {
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'service-worker.js',
+        swDest: path.join(__dirname, 'dist', 'service-worker.js'),
         include: [/\.html$/, /\.js$/, /\.css$/],
       }),
       new WebpackPwaManifest({
@@ -42,6 +42,7 @@ module.exports = () => {
             destination: path.join('assets', 'icons'),
           },
         ],
+        fileName: 'manifest.json',
       }),
     ],
 
