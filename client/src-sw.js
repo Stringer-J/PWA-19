@@ -4,8 +4,18 @@ const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
 const { ExpirationPlugin } = require('workbox-expiration');
 const { precacheAndRoute } = require('workbox-precaching/precacheAndRoute');
+const assetManifest = await fetch('/asset-manifest.json').then(response => response.json());
 
 precacheAndRoute(self.__WB_MANIFEST);
+
+const cacheAssets = Object.values(assetManifest);
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    cache.open('my-cache').then((cache) => {
+      return cache.addAll(cacheAssets);
+    })
+  );
+});
 
 const pageCache = new CacheFirst({
   cacheName: 'page-cache',
