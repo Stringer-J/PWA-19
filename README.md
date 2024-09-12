@@ -7,6 +7,7 @@
 3. Usage
 4. Credits
 5. License
+6. Render Link
 
 ## Description:
 
